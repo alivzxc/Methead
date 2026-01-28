@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Metrolink Watch – Bury Line (Yellow)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #020617;
+      --card: #020617;
+      --card-soft: #030712;
+      --accent: #ffd500;
+      --accent-soft: rgba(255, 213, 0, 0.18);
+      --accent-strong: #ffea7a;
+      --text: #f9fafb;
+      --muted: #9ca3af;
+      --border-subtle: rgba(148, 163, 184, 0.55);
+      --danger: #fb7185;
+      --success: #4ade80;
+      --radius-xl: 1.5rem;
+      --shadow-soft: 0 22px 60px rgba(15, 23, 42, 0.9);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top, #111827 0, #020617 45%, #000 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+    }
+
+    .shell {
+      width: 96%;
+      max-width: 1600px; /* wider */
+      margin: 16px auto;
+      padding: 20px;
+      border-radius: 1.75rem;
+      background:
+        radial-gradient(circle at top left, rgba(251, 191, 36, 0.28), transparent 52%),
+        radial-gradient(circle at bottom right, rgba(56, 189, 248, 0.24), transparent 60%),
+        linear-gradient(145deg, #020617, #020617 40%, #020617 100%);
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      gap: 18px;
+    }
+
+    @media (max-width: 1024px) {
+      .shell {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    header {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 6px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      width: 42px;
+      height: 32px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 25% 0%, #fff, #ffd500 50%, #b45309);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      box-shadow:
+        0 0 0 1px rgba(15, 23, 42, 0.7),
+        0 12px 26px rgba(15, 23, 42, 0.95);
+    }
+
+    .logo::before,
+    .logo::after {
+      content: "";
+      position: absolute;
+      width: 70%;
+      height: 3px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      left: 15%;
+    }
+    .logo::before { top: 8px; }
+    .logo::after { bottom: 8px; }
+
+    .brand-main h1 {
+      margin: 0;
+      font-size: 1.25rem;
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tag {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(234, 179, 8, 0.16);
+      border: 1px solid rgba(250, 204, 21, 0.8);
+      color: #fef3c7;
+    }
+
+    .brand-main p {
+      margin: 2px 0 0;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .summary {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .chip {
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .chip span.value {
+      font-weight: 600;
+      color: var(--accent-strong);
+    }
+
+    .btn-reset {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.65);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--muted);
+      font-size: 0.78rem;
+      padding: 7px 12px;
+      cursor: pointer;
+      transition: 150ms ease-out;
+    }
+    .btn-reset:hover {
+      background: rgba(15, 23, 42, 1);
+      border-color: rgba(248, 250, 252, 0.4);
+      color: #e5e7eb;
+      transform: translateY(-1px);
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.8);
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      gap: 18px;
+    }
+    @media (max-width: 1024px) {
+      main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    /* Map card */
+    .map-card {
+      background:
+        radial-gradient(circle at top, rgba(148, 163, 184, 0.14), transparent 55%),
+        radial-gradient(circle at bottom, rgba(15, 23, 42, 0.9), transparent 60%),
+        var(--card-soft);
+      padding: 14px 14px 16px;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-subtle);
+      position: relative;
+      overflow: hidden;
+      min-height: 360px;
+    }
+
+    .map-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .map-head h2 {
+      margin: 0;
+      font-size: 0.98rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+    .map-head p {
+      margin: 2px 0 0;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+    }
+
+    .colour-dot {
+      width: 14px;
+      height: 4px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+    .zone1 { background: #f97316; }
+    .zone2 { background: #22c55e; }
+    .zone3 { background: #3b82f6; }
+    .zone4 { background: #a855f7; }
+
+    .canvas-wrap {
+      margin-top: 8px;
+      border-radius: 1.1rem;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      overflow: hidden;
+      position: relative;
+      background: radial-gradient(circle at top, rgba(30, 64, 175, 0.32), transparent 55%),
+                  radial-gradient(circle at bottom, rgba(22, 163, 74, 0.32), transparent 60%),
+                  #020617;
+    }
+
+    #mapCanvas {
+      width: 100%;
+      height: 340px;
+      display: block;
+    }
+
+    .zone-rings-label {
+      position: absolute;
+      right: 10px;
+      bottom: 7px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.95);
+      font-size: 0.7rem;
+      color: var(--muted);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+    }
+
+    /* Right side: stations + alerts + map card */
+    .side-column {
+      display: grid;
+      grid-template-rows: minmax(0, 3fr) minmax(0, 2.1fr);
+      gap: 14px;
+    }
+
+    .side-card {
+      background:
+        linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.9));
+      border-radius: var(--radius-xl);
+      padding: 14px 14px 16px;
+      border: 1px solid rgba(56, 189, 248, 0.45);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .side-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      opacity: 0.14;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(251, 191, 36, 1), transparent 60%),
+        radial-gradient(circle at 80% 90%, rgba(56, 189, 248, 1), transparent 60%);
+      pointer-events: none;
+      mix-blend-mode: screen;
+    }
+
+    .side-inner { position: relative; z-index: 1; }
+
+    .side-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 6px;
+      flex-wrap: wrap;
+    }
+
+    .side-header h2 {
+      margin: 0;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .mode-badge {
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      border: 1px solid rgba(56, 189, 248, 0.7);
+      background: rgba(8, 47, 73, 0.9);
+      color: #e0f2fe;
+      white-space: nowrap;
+    }
+
+    .sub {
+      margin: 0 0 8px;
+      font-size: 0.78rem;
+      color: #d1d5db;
+    }
+
+    .sub span {
+      color: var(--accent-strong);
+      font-weight: 600;
+    }
+
+    .current-status {
+      margin-bottom: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      font-size: 0.74rem;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .current-status span.highlight {
+      color: var(--accent-strong);
+      font-weight: 600;
+    }
+
+    .current-status span.bad {
+      color: var(--danger);
+      font-weight: 600;
+    }
+
+    .divider-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.9);
+    }
+
+    .panels {
+      display: grid;
+      grid-template-rows: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 8px;
+      max-height: 310px;
+    }
+
+    .stations {
+      border-radius: 1.1rem;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      padding: 6px 8px 8px;
+      overflow-y: auto;
+    }
+
+    .stations::-webkit-scrollbar,
+    .alerts::-webkit-scrollbar {
+      width: 6px;
+    }
+    .stations::-webkit-scrollbar-track,
+    .alerts::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.7);
+    }
+    .stations::-webkit-scrollbar-thumb,
+    .alerts::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.85);
+      border-radius: 999px;
+    }
+
+    .station-row {
+      padding: 5px 6px 6px;
+      border-radius: 0.75rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 3.1fr); /* more room for buttons */
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 4px;
+      cursor: pointer;
+      transition: 130ms ease-out;
+    }
+
+    .station-row:hover {
+      background: rgba(15, 23, 42, 1);
+      transform: translateY(-0.5px);
+    }
+
+    .station-row.active {
+      background: rgba(248, 250, 252, 0.04);
+      box-shadow: 0 0 0 1px rgba(248, 250, 252, 0.1);
+    }
+
+    .st-main {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .st-name {
+      font-size: 0.8rem;
+    }
+    .st-meta {
+      font-size: 0.66rem;
+      color: var(--muted);
+    }
+
+    .st-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px; /* a bit more space between buttons */
+      justify-content: flex-end;
+    }
+
+    .btn-report {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.95);
+      font-size: 0.7rem;
+      padding: 4px 10px;
+      color: #e5e7eb;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      transition: 130ms ease-out;
+      white-space: nowrap;
+      flex: 1 1 48%; /* each can take about half the row */
+    }
+
+    .btn-report:hover {
+      background: rgba(251, 191, 36, 0.14);
+      border-color: var(--accent-strong);
+      color: var(--accent-strong);
+      box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.65);
+    }
+
+    .btn-report.good {
+      border-color: rgba(34, 197, 94, 0.9);
+      background: rgba(22, 163, 74, 0.2);
+      color: #bbf7d0;
+    }
+    .btn-report.bad {
+      border-color: rgba(248, 113, 113, 0.9);
+      background: rgba(185, 28, 28, 0.2);
+      color: #fecaca;
+    }
+
+    .alerts {
+      border-radius: 1.1rem;
+      background: rgba(15, 23, 42, 0.97);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      padding: 6px 8px 8px;
+      overflow-y: auto;
+      font-size: 0.72rem;
+    }
+
+    .alerts-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      gap: 8px;
+    }
+
+    .alert-row {
+      padding: 4px 4px;
+      border-radius: 0.6rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+      align-items: baseline;
+      margin-bottom: 2px;
+    }
+
+    .alert-row:nth-child(odd) {
+      background: rgba(17, 24, 39, 0.85);
+    }
+
+    .alert-main {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .alert-main span.name {
+      font-size: 0.76rem;
+    }
+
+    .badge-a,
+    .badge-b {
+      padding: 1px 7px;
+      border-radius: 999px;
+      border: 1px solid;
+      font-size: 0.68rem;
+    }
+    .badge-a {
+      border-color: rgba(249, 115, 22, 0.9);
+      background: rgba(248, 113, 22, 0.16);
+      color: #fed7aa;
+    }
+    .badge-b {
+      border-color: rgba(34, 197, 94, 0.9);
+      background: rgba(34, 197, 94, 0.18);
+      color: #bbf7d0;
+    }
+
+    .time {
+      color: var(--muted);
+      font-size: 0.68rem;
+      white-space: nowrap;
+    }
+
+    .summary-counts {
+      font-size: 0.68rem;
+      color: var(--muted);
+    }
+
+    .summary-counts span {
+      font-weight: 600;
+      color: var(--accent-strong);
+    }
+
+    /* Live card (Google Maps) */
+    .live-card {
+      background:
+        radial-gradient(circle at top, rgba(148, 163, 184, 0.16), transparent 55%),
+        var(--card-soft);
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      padding: 12px 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .live-card h2 {
+      margin: 0;
+      font-size: 0.9rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .live-card p {
+      margin: 2px 0 4px;
+      font-size: 0.76rem;
+      color: var(--muted);
+    }
+
+    .live-frame-wrap {
+      flex: 1;
+      min-height: 180px;
+      border-radius: 1rem;
+      overflow: hidden;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.96);
+    }
+
+    .live-frame-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .live-note {
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    .live-note a {
+      color: var(--accent-strong);
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div class="brand">
+        <div class="logo"></div>
+        <div class="brand-main">
+          <h1>Metrolink Watch <span class="tag">Bury Line – Yellow</span></h1>
+          <p>Piccadilly ⇄ Bury with a tiny animated Metrolink carriage and station inspector reports.</p>
+        </div>
+      </div>
+      <div class="summary">
+        <div class="chip">
+          Reports: <span class="value" id="reportCount">0</span>
+        </div>
+        <div class="chip">
+          Inspectors flagged: <span class="value" id="inspectorsCount">0</span>
+        </div>
+        <button class="btn-reset" id="resetBtn">Clear my reports</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="map-card">
+        <div class="map-head">
+          <div>
+            <h2>Bury Line – Approximate Metrolink Map Scale</h2>
+            <p>Stations positioned to roughly match the official yellow line map (schematic, not GIS-accurate).</p>
+          </div>
+          <div class="legend">
+            <div class="legend-item"><div class="colour-dot zone1"></div>Zone 1</div>
+            <div class="legend-item"><div class="colour-dot zone2"></div>Zone 2</div>
+            <div class="legend-item"><div class="colour-dot zone3"></div>Zone 3</div>
+            <div class="legend-item"><div class="colour-dot zone4"></div>Zone 4</div>
+          </div>
+        </div>
+
+        <div class="canvas-wrap">
+          <canvas id="mapCanvas"></canvas>
+          <div class="zone-rings-label">Not to scale for distance – schematic only 🐝</div>
+        </div>
+      </section>
+
+      <div class="side-column">
+        <aside class="side-card">
+          <div class="side-inner">
+            <div class="side-header">
+              <h2>Stations &amp; Inspector Reports</h2>
+              <div class="mode-badge">Option A: Inspectors • Option B: No Inspectors</div>
+            </div>
+            <p class="sub">
+              When the tram reaches your stop, tap the station and choose <span>Option A</span> if you see
+              ticket inspectors, or <span>Option B</span> if it’s clear. Reports are only stored in your browser.
+            </p>
+
+            <div class="current-status" id="currentStatus">
+              <span>Current tram stop: <span class="highlight" id="currentStopName">—</span></span>
+              <span class="divider-dot"></span>
+              <span>Local view: <span id="currentStopMood">no reports yet</span></span>
+            </div>
+
+            <div class="panels">
+              <div class="stations" id="stationsList"></div>
+              <div class="alerts" id="alertsPanel">
+                <div class="alerts-head">
+                  <span>Latest alerts (this browser only)</span>
+                  <span class="summary-counts">
+                    A: <span id="countA">0</span> • B: <span id="countB">0</span>
+                  </span>
+                </div>
+                <div id="alertsBody"></div>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- GOOGLE MAPS EMBED -->
+        <section class="live-card">
+          <h2>Google Maps – Bury Line Journey</h2>
+          <p>
+            Embedded Google Maps route from <strong>Manchester Piccadilly</strong> to
+            <strong>Bury Interchange</strong>. Open in full screen to explore the tram corridor.
+          </p>
+          <div class="live-frame-wrap">
+            <iframe
+              src="https://www.google.com/maps?f=d&source=s_d&saddr=Manchester+Piccadilly+Station&daddr=Bury+Interchange&output=embed"
+              loading="lazy"
+              allowfullscreen
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Manchester Piccadilly to Bury Interchange on Google Maps">
+            </iframe>
+          </div>
+          <p class="live-note">
+            Route styling and stop details are controlled by Google Maps – use the full-screen button
+            to zoom in on the Metrolink yellow line and surrounding area.
+          </p>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // ==== DATA – Bury line (yellow) following map order ====
+    const stations = [
+      { name: "Bury", zone: 4, x: 0.92, y: 0.10 },
+      { name: "Radcliffe", zone: 4, x: 0.84, y: 0.11 },
+      { name: "Whitefield", zone: 4, x: 0.76, y: 0.11 },
+      { name: "Besses o' th' Barn", zone: 3, x: 0.68, y: 0.13 },
+      { name: "Prestwich", zone: 3, x: 0.60, y: 0.15 },
+      { name: "Heaton Park", zone: 3, x: 0.52, y: 0.17 },
+      { name: "Bowker Vale", zone: 3, x: 0.44, y: 0.19 },
+      { name: "Crumpsall", zone: 2, x: 0.36, y: 0.20 },
+      { name: "Abraham Moss", zone: 2, x: 0.28, y: 0.21 },
+      { name: "Queens Road", zone: 2, x: 0.24, y: 0.28 },
+      { name: "Victoria", zone: 1, x: 0.30, y: 0.40 },
+      { name: "Shudehill", zone: 1, x: 0.36, y: 0.42 },
+      { name: "Market Street", zone: 1, x: 0.42, y: 0.44 },
+      { name: "St Peter's Square", zone: 1, x: 0.51, y: 0.47 },
+      { name: "Piccadilly Gardens", zone: 1, x: 0.47, y: 0.55 },
+      { name: "Piccadilly", zone: 1, x: 0.45, y: 0.62 }
+    ];
+
+    stations.forEach(s => {
+      s.reportsA = 0;
+      s.reportsB = 0;
+    });
+
+    const canvas = document.getElementById("mapCanvas");
+    const ctx = canvas.getContext("2d");
+
+    const stationsListEl = document.getElementById("stationsList");
+    const alertsBodyEl = document.getElementById("alertsBody");
+    const currentStopNameEl = document.getElementById("currentStopName");
+    const currentStopMoodEl = document.getElementById("currentStopMood");
+
+    const reportCountEl = document.getElementById("reportCount");
+    const inspectorsCountEl = document.getElementById("inspectorsCount");
+    const countAEl = document.getElementById("countA");
+    const countBEl = document.getElementById("countB");
+    const resetBtn = document.getElementById("resetBtn");
+
+    let tramIndex = 0;
+    let direction = -1; // start heading towards Piccadilly from Bury
+    let tickTimer = null;
+    const alerts = [];
+
+    function buildStationsList() {
+      stationsListEl.innerHTML = "";
+      stations.forEach((station, index) => {
+        const row = document.createElement("div");
+        row.className = "station-row";
+        row.dataset.index = index;
+
+        const main = document.createElement("div");
+        main.className = "st-main";
+        const name = document.createElement("div");
+        name.className = "st-name";
+        name.textContent = station.name;
+        const meta = document.createElement("div");
+        meta.className = "st-meta";
+        meta.textContent = `Zone ${station.zone} • Bury (yellow) line`;
+        main.appendChild(name);
+        main.appendChild(meta);
+
+        const actions = document.createElement("div");
+        actions.className = "st-actions";
+
+        const btnA = document.createElement("button");
+        btnA.className = "btn-report bad";
+        btnA.textContent = "Option A – Ticket Inspectors";
+        btnA.addEventListener("click", (e) => {
+          e.stopPropagation();
+          submitReport(index, "A");
+        });
+
+        const btnB = document.createElement("button");
+        btnB.className = "btn-report good";
+        btnB.textContent = "Option B – No Ticket Inspectors";
+        btnB.addEventListener("click", (e) => {
+          e.stopPropagation();
+          submitReport(index, "B");
+        });
+
+        actions.appendChild(btnA);
+        actions.appendChild(btnB);
+
+        row.appendChild(main);
+        row.appendChild(actions);
+
+        row.addEventListener("click", () => {
+          scrollToStation(index);
+        });
+
+        stationsListEl.appendChild(row);
+      });
+    }
+
+    function scrollToStation(index) {
+      const row = stationsListEl.querySelector(`.station-row[data-index="${index}"]`);
+      if (!row) return;
+      row.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      highlightActiveRow(index);
+    }
+
+    function highlightActiveRow(index) {
+      const rows = stationsListEl.querySelectorAll(".station-row");
+      rows.forEach((row) => {
+        if (parseInt(row.dataset.index, 10) === index) {
+          row.classList.add("active");
+        } else {
+          row.classList.remove("active");
+        }
+      });
+    }
+
+    function submitReport(stationIndex, choice) {
+      const s = stations[stationIndex];
+      if (choice === "A") {
+        s.reportsA += 1;
+      } else {
+        s.reportsB += 1;
+      }
+
+      const time = new Date();
+      alerts.unshift({ stationIndex, choice, time });
+      if (alerts.length > 40) alerts.pop();
+
+      updateCounts();
+      renderAlerts();
+      updateCurrentMood(tramIndex);
+
+      const label = choice === "A" ? "Ticket inspectors" : "No ticket inspectors";
+      currentStopMoodEl.textContent = `${label.toLowerCase()} reported at ${s.name}`;
+      currentStopMoodEl.classList.remove("bad");
+      if (choice === "A") currentStopMoodEl.classList.add("bad");
+    }
+
+    function updateCounts() {
+      const totalReports = alerts.length;
+      const totalA = alerts.filter((a) => a.choice === "A").length;
+      const totalB = totalReports - totalA;
+
+      reportCountEl.textContent = totalReports;
+      inspectorsCountEl.textContent = totalA;
+      countAEl.textContent = totalA;
+      countBEl.textContent = totalB;
+    }
+
+    function renderAlerts() {
+      alertsBodyEl.innerHTML = "";
+      if (!alerts.length) {
+        const empty = document.createElement("div");
+        empty.style.color = "#9ca3af";
+        empty.style.fontSize = "0.72rem";
+        empty.textContent = "No alerts yet. Use Options A/B on a station to add one.";
+        alertsBodyEl.appendChild(empty);
+        return;
+      }
+
+      alerts.forEach((alert) => {
+        const st = stations[alert.stationIndex];
+        const row = document.createElement("div");
+        row.className = "alert-row";
+
+        const main = document.createElement("div");
+        main.className = "alert-main";
+        const name = document.createElement("span");
+        name.className = "name";
+        name.textContent = st.name;
+        const meta = document.createElement("span");
+        meta.style.color = "#9ca3af";
+        meta.textContent = `Zone ${st.zone} • Bury line`;
+        main.appendChild(name);
+        main.appendChild(meta);
+
+        const right = document.createElement("div");
+        right.style.display = "flex";
+        right.style.alignItems = "center";
+        right.style.gap = "6px";
+
+        const badge = document.createElement("span");
+        badge.className = alert.choice === "A" ? "badge-a" : "badge-b";
+        badge.textContent =
+          alert.choice === "A" ? "Option A – Ticket Inspectors" : "Option B – No Ticket Inspectors";
+
+        const time = document.createElement("span");
+        time.className = "time";
+        time.textContent = alert.time.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+
+        right.appendChild(badge);
+        right.appendChild(time);
+
+        row.appendChild(main);
+        row.appendChild(right);
+        alertsBodyEl.appendChild(row);
+      });
+    }
+
+    function updateCurrentMood(index) {
+      const s = stations[index];
+      const total = s.reportsA + s.reportsB;
+      if (!total) {
+        currentStopMoodEl.textContent = "no reports yet";
+        currentStopMoodEl.classList.remove("bad");
+        return;
+      }
+      const ratio = s.reportsA / total;
+      if (ratio > 0.6) {
+        currentStopMoodEl.textContent = "inspectors likely – lots of A reports";
+        currentStopMoodEl.classList.add("bad");
+      } else if (ratio > 0.3) {
+        currentStopMoodEl.textContent = "mixed – keep an eye out";
+        currentStopMoodEl.classList.remove("bad");
+      } else {
+        currentStopMoodEl.textContent = "generally clear – mostly B reports";
+        currentStopMoodEl.classList.remove("bad");
+      }
+    }
+
+    function resizeCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      drawFrame();
+    }
+
+    window.addEventListener("resize", resizeCanvas);
+
+    function zoneColour(zone) {
+      switch (zone) {
+        case 1: return "#f97316";
+        case 2: return "#22c55e";
+        case 3: return "#3b82f6";
+        case 4: return "#a855f7";
+        default: return "#e5e7eb";
+      }
+    }
+
+    function drawFrame() {
+      const w = canvas.clientWidth;
+      const h = canvas.clientHeight;
+      ctx.clearRect(0, 0, w, h);
+
+      const midIndex = Math.floor(stations.length / 2);
+      const centerX = stations[midIndex].x * w;
+      const centerY = stations[midIndex].y * h;
+      const baseR = Math.min(w, h) * 0.2;
+      ["rgba(15,23,42,0.55)", "rgba(15,23,42,0.42)", "rgba(15,23,42,0.3)"].forEach((col, i) => {
+        const r = baseR * (1.2 + i * 0.7);
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, r, 0, Math.PI * 2);
+        ctx.fillStyle = col;
+        ctx.fill();
+        ctx.closePath();
+      });
+
+      ctx.beginPath();
+      stations.forEach((s, i) => {
+        const x = s.x * w;
+        const y = s.y * h;
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      });
+      ctx.strokeStyle = "rgba(248, 250, 252, 0.5)";
+      ctx.lineWidth = 4;
+      ctx.lineCap = "round";
+      ctx.stroke();
+      ctx.closePath();
+
+      stations.forEach((s, i) => {
+        const x = s.x * w;
+        const y = s.y * h;
+        const isCurrent = i === tramIndex;
+
+        ctx.beginPath();
+        ctx.arc(x, y, isCurrent ? 6 : 4, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(248, 250, 252, 0.95)";
+        ctx.fill();
+        ctx.closePath();
+
+        ctx.beginPath();
+        ctx.arc(x, y, isCurrent ? 9 : 7, 0, Math.PI * 2);
+        ctx.strokeStyle = zoneColour(s.zone);
+        ctx.lineWidth = isCurrent ? 2 : 1.5;
+        ctx.stroke();
+        ctx.closePath();
+
+        if (isCurrent) {
+          ctx.save();
+          const label = s.name;
+          ctx.font = "11px system-ui";
+          const metrics = ctx.measureText(label);
+          const paddingX = 7;
+          const boxW = metrics.width + paddingX * 2;
+          const boxH = 18;
+          const labelX = x + 10;
+          const labelY = y - 24;
+
+          ctx.beginPath();
+          if (ctx.roundRect) {
+            ctx.roundRect(labelX, labelY, boxW, boxH, 9);
+          } else {
+            ctx.rect(labelX, labelY, boxW, boxH);
+          }
+          ctx.fillStyle = "rgba(15, 23, 42, 0.96)";
+          ctx.strokeStyle = "rgba(15, 23, 42, 0.6)";
+          ctx.lineWidth = 1;
+          ctx.fill();
+          ctx.stroke();
+          ctx.closePath();
+
+          ctx.fillStyle = "#e5e7eb";
+          ctx.textAlign = "left";
+          ctx.textBaseline = "middle";
+          ctx.fillText(label, labelX + paddingX, labelY + boxH / 2);
+          ctx.restore();
+        }
+      });
+
+      const s = stations[tramIndex];
+      const tx = s.x * w;
+      const ty = s.y * h;
+      const tramW = 34;
+      const tramH = 14;
+
+      ctx.save();
+      ctx.translate(tx, ty + 18);
+
+      ctx.beginPath();
+      ctx.roundRect(-tramW / 2 - 2, -tramH / 2, tramW + 4, tramH, 7);
+      ctx.fillStyle = "rgba(15, 23, 42, 0.85)";
+      ctx.fill();
+      ctx.closePath();
+
+      const grad = ctx.createLinearGradient(-tramW / 2, 0, tramW / 2, 0);
+      grad.addColorStop(0, "#fde047");
+      grad.addColorStop(1, "#facc15");
+
+      ctx.beginPath();
+      ctx.roundRect(-tramW / 2, -tramH / 2, tramW, tramH, 7);
+      ctx.fillStyle = grad;
+      ctx.fill();
+      ctx.closePath();
+
+      ctx.fillStyle = "rgba(15, 23, 42, 0.96)";
+      ctx.fillRect(-tramW / 2 + 4, -tramH / 2 + 3, tramW - 8, 6);
+
+      ctx.fillStyle = "#e5e7eb";
+      for (let i = 0; i < 3; i++) {
+        ctx.fillRect(-tramW / 2 + 5 + i * 9, -tramH / 2 + 4, 6, 4);
+      }
+
+      ctx.beginPath();
+      ctx.arc(-tramW / 2 + 7, tramH / 2, 3, 0, Math.PI * 2);
+      ctx.arc(tramW / 2 - 7, tramH / 2, 3, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(15, 23, 42, 0.96)";
+      ctx.fill();
+      ctx.closePath();
+
+      const totalHere = s.reportsA + s.reportsB;
+      if (totalHere && s.reportsA / totalHere > 0.6) {
+        ctx.fillStyle = "#f97316";
+        ctx.font = "9px system-ui";
+        ctx.textAlign = "left";
+        ctx.fillText("Tickets out!", tramW / 2 + 6, -tramH / 2 + 1);
+      }
+
+      ctx.restore();
+    }
+
+    function tick() {
+      tramIndex += direction;
+      if (tramIndex >= stations.length) {
+        tramIndex = stations.length - 2;
+        direction = -1;
+      } else if (tramIndex < 0) {
+        tramIndex = 1;
+        direction = 1;
+      }
+      const s = stations[tramIndex];
+      currentStopNameEl.textContent = s.name;
+      highlightActiveRow(tramIndex);
+      updateCurrentMood(tramIndex);
+      drawFrame();
+    }
+
+    function resetAll() {
+      alerts.length = 0;
+      stations.forEach((s) => {
+        s.reportsA = 0;
+        s.reportsB = 0;
+      });
+      updateCounts();
+      renderAlerts();
+      updateCurrentMood(tramIndex);
+    }
+
+    resetBtn.addEventListener("click", () => {
+      resetAll();
+    });
+
+    function init() {
+      buildStationsList();
+      resizeCanvas();
+      tramIndex = 0;
+      direction = -1;
+      currentStopNameEl.textContent = stations[tramIndex].name;
+      highlightActiveRow(tramIndex);
+      updateCurrentMood(tramIndex);
+      if (tickTimer) clearInterval(tickTimer);
+      tickTimer = setInterval(tick, 2200);
+      renderAlerts();
+    }
+
+    init();
+  </script>
+</body>
+</html>
