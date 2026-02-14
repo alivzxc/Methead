@@ -2,687 +2,664 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Metrolink Watch – Bury Line (Yellow)</title>
+  <title>Metheads – Bury Line (Yellow)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    :root {
-      --bg: #020617;
-      --card: #020617;
-      --card-soft: #030712;
-      --accent: #ffd500;
-      --accent-soft: rgba(255, 213, 0, 0.18);
-      --accent-strong: #ffea7a;
-      --text: #f9fafb;
-      --muted: #9ca3af;
-      --border-subtle: rgba(148, 163, 184, 0.55);
-      --danger: #fb7185;
-      --success: #4ade80;
-      --radius-xl: 1.5rem;
-      --shadow-soft: 0 22px 60px rgba(15, 23, 42, 0.9);
+    :root{
+      --bg:#020617;
+      --card:#0b1220;
+      --card2:#0a1020;
+      --text:#f9fafb;
+      --muted:#9ca3af;
+
+      --accent:#ffd500;
+      --accent2:#ffea7a;
+
+      --border: rgba(148,163,184,.55);
+      --border2: rgba(56,189,248,.45);
+
+      --danger:#fb7185;
+      --success:#4ade80;
+
+      --shadow: 0 22px 60px rgba(15, 23, 42, 0.9);
+      --r-xl: 1.5rem;
     }
 
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at top, #111827 0, #020617 45%, #000 100%);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      align-items: stretch;
-      justify-content: center;
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+      background: radial-gradient(circle at top, #111827 0, #020617 45%, #000 100%);
+      color:var(--text);
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:stretch;
+      padding:16px;
     }
 
-    .shell {
-      width: 96%;
-      max-width: 1600px; /* wider */
-      margin: 16px auto;
-      padding: 20px;
+    .shell{
+      width:100%;
+      max-width: 1480px;
       border-radius: 1.75rem;
       background:
-        radial-gradient(circle at top left, rgba(251, 191, 36, 0.28), transparent 52%),
-        radial-gradient(circle at bottom right, rgba(56, 189, 248, 0.24), transparent 60%),
+        radial-gradient(circle at top left, rgba(251,191,36,.28), transparent 52%),
+        radial-gradient(circle at bottom right, rgba(56,189,248,.24), transparent 60%),
         linear-gradient(145deg, #020617, #020617 40%, #020617 100%);
-      box-shadow: var(--shadow-soft);
-      display: grid;
-      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-      gap: 18px;
+      box-shadow: var(--shadow);
+      padding:18px;
+      display:grid;
+      grid-template-rows: auto 1fr;
+      gap:16px;
+      min-height: calc(100vh - 32px);
     }
 
-    @media (max-width: 1024px) {
-      .shell {
-        grid-template-columns: minmax(0, 1fr);
-      }
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
     }
 
-    header {
-      grid-column: 1 / -1;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding-bottom: 6px;
-      flex-wrap: wrap;
-    }
+    .brand{ display:flex; gap:12px; align-items:center; }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .logo {
-      width: 42px;
-      height: 32px;
-      border-radius: 999px;
+    .logo{
+      width:42px;height:32px;border-radius:999px;
       background: radial-gradient(circle at 25% 0%, #fff, #ffd500 50%, #b45309);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      box-shadow:
-        0 0 0 1px rgba(15, 23, 42, 0.7),
-        0 12px 26px rgba(15, 23, 42, 0.95);
+      box-shadow: 0 0 0 1px rgba(15,23,42,.7), 0 12px 26px rgba(15,23,42,.95);
+      position:relative;
+    }
+    .logo::before,.logo::after{
+      content:""; position:absolute; left:15%; width:70%; height:3px;
+      border-radius:999px; background: rgba(15,23,42,.9);
+    }
+    .logo::before{ top:8px; }
+    .logo::after{ bottom:8px; }
+
+    .brand-main h1{
+      margin:0;
+      font-size:1.25rem;
+      letter-spacing:.04em;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .tag{
+      font-size:.68rem;
+      text-transform:uppercase;
+      padding:2px 8px;
+      border-radius:999px;
+      background: rgba(234,179,8,.16);
+      border:1px solid rgba(250,204,21,.8);
+      color:#fef3c7;
+      white-space:nowrap;
+    }
+    .brand-main p{
+      margin:2px 0 0;
+      font-size:.78rem;
+      color:var(--muted);
     }
 
-    .logo::before,
-    .logo::after {
-      content: "";
-      position: absolute;
-      width: 70%;
-      height: 3px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.9);
-      left: 15%;
+    .summary{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      font-size:.8rem;
     }
-    .logo::before { top: 8px; }
-    .logo::after { bottom: 8px; }
-
-    .brand-main h1 {
-      margin: 0;
-      font-size: 1.25rem;
-      letter-spacing: 0.04em;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+    .chip{
+      padding:7px 11px;
+      border-radius:999px;
+      background: rgba(15,23,42,.85);
+      border:1px solid var(--border);
+      display:flex;
+      align-items:center;
+      gap:6px;
     }
-
-    .tag {
-      font-size: 0.68rem;
-      text-transform: uppercase;
-      padding: 2px 8px;
-      border-radius: 999px;
-      background: rgba(234, 179, 8, 0.16);
-      border: 1px solid rgba(250, 204, 21, 0.8);
-      color: #fef3c7;
+    .chip .value{
+      font-weight:700;
+      color: var(--accent2);
     }
 
-    .brand-main p {
-      margin: 2px 0 0;
-      font-size: 0.78rem;
-      color: var(--muted);
+    .btn{
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.65);
+      background: rgba(15,23,42,.9);
+      color:#e5e7eb;
+      font-size:.78rem;
+      padding:7px 12px;
+      cursor:pointer;
+      transition:150ms ease-out;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
     }
-
-    .summary {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.8rem;
-      flex-wrap: wrap;
-    }
-
-    .chip {
-      padding: 7px 11px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.85);
-      border: 1px solid var(--border-subtle);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .chip span.value {
-      font-weight: 600;
-      color: var(--accent-strong);
-    }
-
-    .btn-reset {
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.65);
-      background: rgba(15, 23, 42, 0.9);
-      color: var(--muted);
-      font-size: 0.78rem;
-      padding: 7px 12px;
-      cursor: pointer;
-      transition: 150ms ease-out;
-    }
-    .btn-reset:hover {
-      background: rgba(15, 23, 42, 1);
-      border-color: rgba(248, 250, 252, 0.4);
-      color: #e5e7eb;
+    .btn:hover{
       transform: translateY(-1px);
-      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.8);
+      box-shadow: 0 10px 30px rgba(15,23,42,.8);
+      border-color: rgba(248,250,252,.4);
+    }
+    .btn.donate{
+      border-color: rgba(250,204,21,.85);
+      background: rgba(250,204,21,.12);
+      color: #fff7cc;
+    }
+    .btn.donate:hover{
+      background: rgba(250,204,21,.18);
+      box-shadow: 0 0 0 1px rgba(250,204,21,.45), 0 12px 30px rgba(15,23,42,.85);
     }
 
-    main {
-      display: grid;
-      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-      gap: 18px;
+    /* ====== MAIN GRID (3 columns) ====== */
+    main{
+      display:grid;
+      grid-template-columns: minmax(0, 4.6fr) minmax(0, 5.4fr) minmax(0, 4fr);
+      gap:18px;
+      min-height:0; /* CRITICAL for scrolling children */
     }
-    @media (max-width: 1024px) {
-      main {
-        grid-template-columns: minmax(0, 1fr);
-      }
+
+    @media (max-width: 1100px){
+      main{ grid-template-columns: minmax(0, 1fr); }
+    }
+
+    /* left stack (map + google maps) */
+    .left-stack{
+      display:grid;
+      grid-template-rows: auto auto;
+      gap:10px;            /* CHANGED: pull Google Maps up */
+      min-height:0;
+      align-content:start; /* CHANGED: stops that dead space under map */
+    }
+
+    .card{
+      border-radius: var(--r-xl);
+      border:1px solid var(--border);
+      background:
+        radial-gradient(circle at top, rgba(148,163,184,.14), transparent 55%),
+        radial-gradient(circle at bottom, rgba(15,23,42,.9), transparent 60%),
+        rgba(2,6,23,.6);
+      overflow:hidden;
     }
 
     /* Map card */
-    .map-card {
-      background:
-        radial-gradient(circle at top, rgba(148, 163, 184, 0.14), transparent 55%),
-        radial-gradient(circle at bottom, rgba(15, 23, 42, 0.9), transparent 60%),
-        var(--card-soft);
-      padding: 14px 14px 16px;
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--border-subtle);
-      position: relative;
-      overflow: hidden;
-      min-height: 360px;
+    .map-card{
+      padding:14px 14px 16px;
+      /* CHANGED: removed min-height to remove unnecessary space */
+      display:flex;
+      flex-direction:column;
+      gap:10px;
     }
 
-    .map-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 10px;
-      flex-wrap: wrap;
+    .map-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .map-head h2{
+      margin:0;
+      font-size:.98rem;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+    }
+    .map-head p{
+      margin:2px 0 0;
+      font-size:.78rem;
+      color:var(--muted);
+      max-width: 60ch;
     }
 
-    .map-head h2 {
-      margin: 0;
-      font-size: 0.98rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
+    .legend{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      font-size:.72rem;
+      color:var(--muted);
     }
-    .map-head p {
-      margin: 2px 0 0;
-      font-size: 0.78rem;
-      color: var(--muted);
+    .legend-item{
+      display:inline-flex;
+      align-items:center;
+      gap:4px;
+      padding:3px 7px;
+      border-radius:999px;
+      background: rgba(15,23,42,.85);
+      border:1px solid rgba(148,163,184,.5);
     }
+    .colour-dot{ width:14px; height:4px; border-radius:999px; background: var(--accent); }
+    .zone1{ background:#f97316; }
+    .zone2{ background:#22c55e; }
+    .zone3{ background:#3b82f6; }
+    .zone4{ background:#a855f7; }
 
-    .legend {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      font-size: 0.72rem;
-      color: var(--muted);
-    }
-
-    .legend-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 3px 7px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.85);
-      border: 1px solid rgba(148, 163, 184, 0.5);
-    }
-
-    .colour-dot {
-      width: 14px;
-      height: 4px;
-      border-radius: 999px;
-      background: var(--accent);
-    }
-    .zone1 { background: #f97316; }
-    .zone2 { background: #22c55e; }
-    .zone3 { background: #3b82f6; }
-    .zone4 { background: #a855f7; }
-
-    .canvas-wrap {
-      margin-top: 8px;
+    .canvas-wrap{
       border-radius: 1.1rem;
-      border: 1px solid rgba(148, 163, 184, 0.45);
-      overflow: hidden;
-      position: relative;
-      background: radial-gradient(circle at top, rgba(30, 64, 175, 0.32), transparent 55%),
-                  radial-gradient(circle at bottom, rgba(22, 163, 74, 0.32), transparent 60%),
-                  #020617;
-    }
-
-    #mapCanvas {
-      width: 100%;
-      height: 340px;
-      display: block;
-    }
-
-    .zone-rings-label {
-      position: absolute;
-      right: 10px;
-      bottom: 7px;
-      padding: 3px 8px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.95);
-      font-size: 0.7rem;
-      color: var(--muted);
-      border: 1px solid rgba(148, 163, 184, 0.5);
-    }
-
-    /* Right side: stations + alerts + map card */
-    .side-column {
-      display: grid;
-      grid-template-rows: minmax(0, 3fr) minmax(0, 2.1fr);
-      gap: 14px;
-    }
-
-    .side-card {
+      border:1px solid rgba(148,163,184,.45);
+      overflow:hidden;
+      position:relative;
       background:
-        linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.9));
-      border-radius: var(--radius-xl);
-      padding: 14px 14px 16px;
-      border: 1px solid rgba(56, 189, 248, 0.45);
-      position: relative;
-      overflow: hidden;
+        radial-gradient(circle at top, rgba(30,64,175,.32), transparent 55%),
+        radial-gradient(circle at bottom, rgba(22,163,74,.32), transparent 60%),
+        #020617;
     }
-
-    .side-card::before {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      opacity: 0.14;
-      background:
-        radial-gradient(circle at 15% 20%, rgba(251, 191, 36, 1), transparent 60%),
-        radial-gradient(circle at 80% 90%, rgba(56, 189, 248, 1), transparent 60%);
-      pointer-events: none;
-      mix-blend-mode: screen;
-    }
-
-    .side-inner { position: relative; z-index: 1; }
-
-    .side-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 8px;
-      margin-bottom: 6px;
-      flex-wrap: wrap;
-    }
-
-    .side-header h2 {
-      margin: 0;
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-    }
-
-    .mode-badge {
-      padding: 3px 9px;
-      border-radius: 999px;
-      font-size: 0.7rem;
-      border: 1px solid rgba(56, 189, 248, 0.7);
-      background: rgba(8, 47, 73, 0.9);
-      color: #e0f2fe;
-      white-space: nowrap;
-    }
-
-    .sub {
-      margin: 0 0 8px;
-      font-size: 0.78rem;
-      color: #d1d5db;
-    }
-
-    .sub span {
-      color: var(--accent-strong);
-      font-weight: 600;
-    }
-
-    .current-status {
-      margin-bottom: 8px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      font-size: 0.74rem;
+    #mapCanvas{ width:100%; height:340px; display:block; }
+    .zone-rings-label{
+      position:absolute;
+      right:10px; bottom:7px;
+      padding:3px 8px;
+      border-radius:999px;
+      background: rgba(15,23,42,.95);
+      font-size:.7rem;
       color: var(--muted);
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      align-items: center;
-      flex-wrap: wrap;
+      border:1px solid rgba(148,163,184,.5);
     }
 
-    .current-status span.highlight {
-      color: var(--accent-strong);
-      font-weight: 600;
+    /* Google maps card */
+    .live-card{
+      padding:12px 12px 14px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
     }
-
-    .current-status span.bad {
-      color: var(--danger);
-      font-weight: 600;
+    .live-card h2{
+      margin:0;
+      font-size:.9rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
     }
-
-    .divider-dot {
-      width: 4px;
-      height: 4px;
-      border-radius: 999px;
-      background: rgba(148, 163, 184, 0.9);
+    .live-card p{
+      margin:2px 0 4px;
+      font-size:.76rem;
+      color:var(--muted);
     }
-
-    .panels {
-      display: grid;
-      grid-template-rows: minmax(0, 3fr) minmax(0, 2fr);
-      gap: 8px;
-      max-height: 310px;
-    }
-
-    .stations {
-      border-radius: 1.1rem;
-      background: rgba(15, 23, 42, 0.95);
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      padding: 6px 8px 8px;
-      overflow-y: auto;
-    }
-
-    .stations::-webkit-scrollbar,
-    .alerts::-webkit-scrollbar {
-      width: 6px;
-    }
-    .stations::-webkit-scrollbar-track,
-    .alerts::-webkit-scrollbar-track {
-      background: rgba(15, 23, 42, 0.7);
-    }
-    .stations::-webkit-scrollbar-thumb,
-    .alerts::-webkit-scrollbar-thumb {
-      background: rgba(148, 163, 184, 0.85);
-      border-radius: 999px;
-    }
-
-    .station-row {
-      padding: 5px 6px 6px;
-      border-radius: 0.75rem;
-      display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(0, 3.1fr); /* more room for buttons */
-      gap: 8px;
-      align-items: center;
-      margin-bottom: 4px;
-      cursor: pointer;
-      transition: 130ms ease-out;
-    }
-
-    .station-row:hover {
-      background: rgba(15, 23, 42, 1);
-      transform: translateY(-0.5px);
-    }
-
-    .station-row.active {
-      background: rgba(248, 250, 252, 0.04);
-      box-shadow: 0 0 0 1px rgba(248, 250, 252, 0.1);
-    }
-
-    .st-main {
-      display: flex;
-      flex-direction: column;
-      gap: 1px;
-    }
-
-    .st-name {
-      font-size: 0.8rem;
-    }
-    .st-meta {
-      font-size: 0.66rem;
-      color: var(--muted);
-    }
-
-    .st-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px; /* a bit more space between buttons */
-      justify-content: flex-end;
-    }
-
-    .btn-report {
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.95);
-      font-size: 0.7rem;
-      padding: 4px 10px;
-      color: #e5e7eb;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      transition: 130ms ease-out;
-      white-space: nowrap;
-      flex: 1 1 48%; /* each can take about half the row */
-    }
-
-    .btn-report:hover {
-      background: rgba(251, 191, 36, 0.14);
-      border-color: var(--accent-strong);
-      color: var(--accent-strong);
-      box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.65);
-    }
-
-    .btn-report.good {
-      border-color: rgba(34, 197, 94, 0.9);
-      background: rgba(22, 163, 74, 0.2);
-      color: #bbf7d0;
-    }
-    .btn-report.bad {
-      border-color: rgba(248, 113, 113, 0.9);
-      background: rgba(185, 28, 28, 0.2);
-      color: #fecaca;
-    }
-
-    .alerts {
-      border-radius: 1.1rem;
-      background: rgba(15, 23, 42, 0.97);
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      padding: 6px 8px 8px;
-      overflow-y: auto;
-      font-size: 0.72rem;
-    }
-
-    .alerts-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 4px;
-      color: var(--muted);
-      font-size: 0.72rem;
-      gap: 8px;
-    }
-
-    .alert-row {
-      padding: 4px 4px;
-      border-radius: 0.6rem;
-      display: flex;
-      justify-content: space-between;
-      gap: 6px;
-      align-items: baseline;
-      margin-bottom: 2px;
-    }
-
-    .alert-row:nth-child(odd) {
-      background: rgba(17, 24, 39, 0.85);
-    }
-
-    .alert-main {
-      display: flex;
-      flex-direction: column;
-      gap: 1px;
-    }
-
-    .alert-main span.name {
-      font-size: 0.76rem;
-    }
-
-    .badge-a,
-    .badge-b {
-      padding: 1px 7px;
-      border-radius: 999px;
-      border: 1px solid;
-      font-size: 0.68rem;
-    }
-    .badge-a {
-      border-color: rgba(249, 115, 22, 0.9);
-      background: rgba(248, 113, 22, 0.16);
-      color: #fed7aa;
-    }
-    .badge-b {
-      border-color: rgba(34, 197, 94, 0.9);
-      background: rgba(34, 197, 94, 0.18);
-      color: #bbf7d0;
-    }
-
-    .time {
-      color: var(--muted);
-      font-size: 0.68rem;
-      white-space: nowrap;
-    }
-
-    .summary-counts {
-      font-size: 0.68rem;
-      color: var(--muted);
-    }
-
-    .summary-counts span {
-      font-weight: 600;
-      color: var(--accent-strong);
-    }
-
-    /* Live card (Google Maps) */
-    .live-card {
-      background:
-        radial-gradient(circle at top, rgba(148, 163, 184, 0.16), transparent 55%),
-        var(--card-soft);
-      border-radius: var(--radius-xl);
-      border: 1px solid rgba(148, 163, 184, 0.55);
-      padding: 12px 12px 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .live-card h2 {
-      margin: 0;
-      font-size: 0.9rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .live-card p {
-      margin: 2px 0 4px;
-      font-size: 0.76rem;
-      color: var(--muted);
-    }
-
-    .live-frame-wrap {
-      flex: 1;
-      min-height: 180px;
+    .live-frame-wrap{
+      min-height: 210px;
       border-radius: 1rem;
-      overflow: hidden;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.96);
+      overflow:hidden;
+      border:1px solid rgba(148,163,184,.7);
+      background: rgba(15,23,42,.96);
+    }
+    .live-frame-wrap iframe{ width:100%; height:100%; border:0; }
+    .live-note{ font-size:.7rem; color:var(--muted); }
+
+    /* Stations card (middle) */
+    .stations-card{
+      border-radius: var(--r-xl);
+      border:1px solid var(--border2);
+      background: linear-gradient(135deg, rgba(15,23,42,.96), rgba(15,23,42,.9));
+      padding:14px 14px 16px;
+      position:relative;
+      overflow:hidden;
+
+      display:flex;
+      flex-direction:column;
+      min-height:0; /* important */
+    }
+    .stations-card::before{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      opacity:.14;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(251,191,36,1), transparent 60%),
+        radial-gradient(circle at 80% 90%, rgba(56,189,248,1), transparent 60%);
+      pointer-events:none;
+      mix-blend-mode:screen;
+    }
+    .stations-inner{ position:relative; z-index:1; display:flex; flex-direction:column; min-height:0; }
+
+    .stations-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:baseline;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-bottom:6px;
+    }
+    .stations-header h2{
+      margin:0;
+      font-size:.9rem;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+    }
+    .mode-badge{
+      padding:3px 9px;
+      border-radius:999px;
+      font-size:.7rem;
+      border:1px solid rgba(56,189,248,.7);
+      background: rgba(8,47,73,.9);
+      color:#e0f2fe;
+      white-space:nowrap;
+    }
+    .sub{
+      margin:0 0 8px;
+      font-size:.78rem;
+      color:#d1d5db;
+    }
+    .sub span{ color: var(--accent2); font-weight:700; }
+
+    .current-status{
+      margin-bottom:10px;
+      padding:6px 10px;
+      border-radius:999px;
+      background: rgba(15,23,42,.9);
+      border:1px solid rgba(148,163,184,.5);
+      font-size:.74rem;
+      color:var(--muted);
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .current-status .highlight{ color:var(--accent2); font-weight:700; }
+
+    /* Scrollable panels */
+    .panels{
+      display:grid;
+      grid-template-rows: minmax(0, 1.1fr) minmax(0, .9fr);
+      gap:10px;
+      min-height:0; /* important */
+      flex:1;
     }
 
-    .live-frame-wrap iframe {
-      width: 100%;
-      height: 100%;
-      border: 0;
+    .stations{
+      border-radius: 1.1rem;
+      background: rgba(15,23,42,.95);
+      border:1px solid rgba(148,163,184,.5);
+      padding:6px 8px 8px;
+      overflow:auto;
+      min-height:0;
+    }
+    .alerts{
+      border-radius: 1.1rem;
+      background: rgba(15,23,42,.97);
+      border:1px solid rgba(148,163,184,.6);
+      padding:6px 8px 8px;
+      overflow:auto;
+      min-height:0;
+      font-size:.72rem;
+    }
+    .stations::-webkit-scrollbar,
+    .alerts::-webkit-scrollbar{ width:6px; }
+    .stations::-webkit-scrollbar-track,
+    .alerts::-webkit-scrollbar-track{ background: rgba(15,23,42,.7); }
+    .stations::-webkit-scrollbar-thumb,
+    .alerts::-webkit-scrollbar-thumb{ background: rgba(148,163,184,.85); border-radius:999px; }
+
+    .station-row{
+      padding:5px 6px 6px;
+      border-radius:.75rem;
+      display:grid;
+      grid-template-columns: minmax(0,1.2fr) minmax(0,2.8fr);
+      gap:10px;
+      align-items:center;
+      margin-bottom:4px;
+      cursor:pointer;
+      transition:130ms ease-out;
+    }
+    .station-row:hover{ background: rgba(15,23,42,1); transform: translateY(-.5px); }
+    .station-row.active{
+      background: rgba(248,250,252,.04);
+      box-shadow: 0 0 0 1px rgba(248,250,252,.1);
+    }
+    .st-main{ display:flex; flex-direction:column; gap:1px; }
+    .st-name{ font-size:.8rem; }
+    .st-meta{ font-size:.66rem; color:var(--muted); }
+
+    .st-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      justify-content:flex-end;
+    }
+    .btn-report{
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.7);
+      background: rgba(15,23,42,.95);
+      font-size:.7rem;
+      padding:6px 10px;
+      color:#e5e7eb;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      white-space:nowrap;
+      transition:130ms ease-out;
+      flex: 1 1 calc(50% - 8px);
+      min-width: 160px;
+    }
+    .btn-report:hover{
+      background: rgba(251,191,36,.12);
+      border-color: var(--accent2);
+      color: var(--accent2);
+      box-shadow: 0 0 0 1px rgba(251,191,36,.35);
+    }
+    .btn-report.bad{
+      border-color: rgba(248,113,113,.9);
+      background: rgba(185,28,28,.18);
+      color:#fecaca;
+    }
+    .btn-report.good{
+      border-color: rgba(34,197,94,.9);
+      background: rgba(22,163,74,.18);
+      color:#bbf7d0;
     }
 
-    .live-note {
-      font-size: 0.7rem;
+    .alerts-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:4px;
+      color:var(--muted);
+      gap:8px;
+      flex-wrap:wrap;
+    }
+    .summary-counts{ font-size:.68rem; color:var(--muted); }
+    .summary-counts span{ font-weight:700; color: var(--accent2); }
+
+    .alert-row{
+      padding:4px 6px;
+      border-radius:.6rem;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      align-items:baseline;
+      margin-bottom:2px;
+    }
+    .alert-row:nth-child(odd){ background: rgba(17,24,39,.85); }
+    .alert-main{ display:flex; flex-direction:column; gap:1px; }
+    .alert-main .name{ font-size:.76rem; }
+    .time{ color:var(--muted); font-size:.68rem; white-space:nowrap; }
+
+    .badge-a,.badge-b{
+      padding:1px 7px;
+      border-radius:999px;
+      border:1px solid;
+      font-size:.68rem;
+      white-space:nowrap;
+    }
+    .badge-a{
+      border-color: rgba(249,115,22,.9);
+      background: rgba(248,113,22,.16);
+      color:#fed7aa;
+    }
+    .badge-b{
+      border-color: rgba(34,197,94,.9);
+      background: rgba(34,197,94,.18);
+      color:#bbf7d0;
+    }
+
+    /* Analytics (right) */
+    .analytics-card{
+      border-radius: var(--r-xl);
+      border:1px solid rgba(148,163,184,.6);
+      background:
+        radial-gradient(circle at top, rgba(148,163,184,.16), transparent 55%),
+        linear-gradient(135deg, rgba(15,23,42,.98), rgba(15,23,42,.94));
+      padding:14px 14px 16px;
+      display:flex;
+      flex-direction:column;
+      min-height:0;
+    }
+    .analytics-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-bottom:6px;
+    }
+    .analytics-header h2{
+      margin:0;
+      font-size:.9rem;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+    }
+    .analytics-tag{
+      padding:3px 9px;
+      border-radius:999px;
+      font-size:.7rem;
+      border:1px solid rgba(148,163,184,.8);
+      background: rgba(15,23,42,.9);
+      color: var(--muted);
+      white-space:nowrap;
+    }
+    .analytics-sub{
+      margin:0 0 10px;
+      font-size:.76rem;
       color: var(--muted);
     }
 
-    .live-note a {
-      color: var(--accent-strong);
+    .analytics-summary{
+      border-radius: 1.1rem;
+      border:1px solid rgba(148,163,184,.6);
+      background: rgba(15,23,42,.96);
+      padding:10px 10px 12px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      margin-bottom:10px;
     }
+    .metric-main{
+      display:flex;
+      justify-content:space-between;
+      align-items:baseline;
+    }
+    .metric-label{ font-size:.75rem; color:var(--muted); }
+    .metric-value{ font-size:1.3rem; font-weight:800; color: var(--accent2); }
+
+    .metric-split{ display:flex; flex-direction:column; gap:6px; font-size:.72rem; }
+    .metric-row{ display:flex; justify-content:space-between; align-items:baseline; color:#e5e7eb; }
+    .metric-bar{
+      height:6px;
+      border-radius:999px;
+      background: rgba(31,41,55,.9);
+      overflow:hidden;
+    }
+    .metric-bar-fill{
+      height:100%;
+      width:0%;
+      border-radius:999px;
+      transition: width 220ms ease-out;
+    }
+    .metric-bar-fill.bad{ background: rgba(248,113,113,.8); }
+    .metric-bar-fill.good{ background: rgba(34,197,94,.8); }
+
+    .analytics-stations{
+      border-radius: 1.1rem;
+      border:1px solid rgba(148,163,184,.6);
+      background: rgba(15,23,42,.98);
+      padding:8px 10px 10px;
+      flex:1;
+      min-height:0;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    .analytics-stations-head{
+      font-size:.74rem;
+      color:var(--muted);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .analytics-stations-list{
+      flex:1;
+      min-height:0;
+      overflow:auto;
+      padding-top:2px;
+    }
+    .analytics-stations-list::-webkit-scrollbar{ width:6px; }
+    .analytics-stations-list::-webkit-scrollbar-thumb{ background: rgba(148,163,184,.85); border-radius:999px; }
+
+    .analytics-empty{
+      font-size:.72rem;
+      color:var(--muted);
+      margin:0;
+    }
+    .analytics-station-row{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      padding:5px 0;
+      border-bottom: 1px dashed rgba(148,163,184,.22);
+      font-size:.72rem;
+    }
+    .analytics-station-row:last-child{ border-bottom:none; }
+    .analytics-station-main{ display:flex; flex-direction:column; gap:1px; }
+    .analytics-station-name{ color:#e5e7eb; }
+    .analytics-station-meta{ color:var(--muted); font-size:.68rem; }
+    .analytics-station-counts{ text-align:right; color:var(--muted); font-weight:700; }
   </style>
 </head>
+
 <body>
   <div class="shell">
     <header>
       <div class="brand">
         <div class="logo"></div>
         <div class="brand-main">
-          <h1>Metrolink Watch <span class="tag">Bury Line – Yellow</span></h1>
+          <h1>Metheads <span class="tag">Bury Line – Yellow</span></h1>
           <p>Piccadilly ⇄ Bury with a tiny animated Metrolink carriage and station inspector reports.</p>
         </div>
       </div>
+
       <div class="summary">
-        <div class="chip">
-          Reports: <span class="value" id="reportCount">0</span>
-        </div>
-        <div class="chip">
-          Inspectors flagged: <span class="value" id="inspectorsCount">0</span>
-        </div>
-        <button class="btn-reset" id="resetBtn">Clear my reports</button>
+        <div class="chip">Reports: <span class="value" id="reportCount">0</span></div>
+        <div class="chip">Inspectors flagged: <span class="value" id="inspectorsCount">0</span></div>
+
+        <a class="btn donate" href="https://buymeacoffee.com/metheads" target="_blank" rel="noopener">
+          ☕ Donate
+        </a>
       </div>
     </header>
 
     <main>
-      <section class="map-card">
-        <div class="map-head">
-          <div>
-            <h2>Bury Line – Approximate Metrolink Map Scale</h2>
-            <p>Stations positioned to roughly match the official yellow line map (schematic, not GIS-accurate).</p>
-          </div>
-          <div class="legend">
-            <div class="legend-item"><div class="colour-dot zone1"></div>Zone 1</div>
-            <div class="legend-item"><div class="colour-dot zone2"></div>Zone 2</div>
-            <div class="legend-item"><div class="colour-dot zone3"></div>Zone 3</div>
-            <div class="legend-item"><div class="colour-dot zone4"></div>Zone 4</div>
-          </div>
-        </div>
-
-        <div class="canvas-wrap">
-          <canvas id="mapCanvas"></canvas>
-          <div class="zone-rings-label">Not to scale for distance – schematic only 🐝</div>
-        </div>
-      </section>
-
-      <div class="side-column">
-        <aside class="side-card">
-          <div class="side-inner">
-            <div class="side-header">
-              <h2>Stations &amp; Inspector Reports</h2>
-              <div class="mode-badge">Option A: Inspectors • Option B: No Inspectors</div>
+      <!-- LEFT COLUMN: Map + Google Maps under it -->
+      <div class="left-stack">
+        <section class="card map-card">
+          <div class="map-head">
+            <div>
+              <h2>Bury Line – Approximate Metrolink Map Scale</h2>
+              <p>Stations positioned to roughly match the official yellow line map (schematic, not GIS-accurate).</p>
             </div>
-            <p class="sub">
-              When the tram reaches your stop, tap the station and choose <span>Option A</span> if you see
-              ticket inspectors, or <span>Option B</span> if it’s clear. Reports are only stored in your browser.
-            </p>
-
-            <div class="current-status" id="currentStatus">
-              <span>Current tram stop: <span class="highlight" id="currentStopName">—</span></span>
-              <span class="divider-dot"></span>
-              <span>Local view: <span id="currentStopMood">no reports yet</span></span>
-            </div>
-
-            <div class="panels">
-              <div class="stations" id="stationsList"></div>
-              <div class="alerts" id="alertsPanel">
-                <div class="alerts-head">
-                  <span>Latest alerts (this browser only)</span>
-                  <span class="summary-counts">
-                    A: <span id="countA">0</span> • B: <span id="countB">0</span>
-                  </span>
-                </div>
-                <div id="alertsBody"></div>
-              </div>
+            <div class="legend">
+              <div class="legend-item"><div class="colour-dot zone1"></div>Zone 1</div>
+              <div class="legend-item"><div class="colour-dot zone2"></div>Zone 2</div>
+              <div class="legend-item"><div class="colour-dot zone3"></div>Zone 3</div>
+              <div class="legend-item"><div class="colour-dot zone4"></div>Zone 4</div>
             </div>
           </div>
-        </aside>
 
-        <!-- GOOGLE MAPS EMBED -->
-        <section class="live-card">
+          <div class="canvas-wrap">
+            <canvas id="mapCanvas"></canvas>
+            <div class="zone-rings-label">Not to scale for distance – schematic only 🐝</div>
+          </div>
+        </section>
+
+        <section class="card live-card">
           <h2>Google Maps – Bury Line Journey</h2>
           <p>
             Embedded Google Maps route from <strong>Manchester Piccadilly</strong> to
@@ -698,45 +675,123 @@
             </iframe>
           </div>
           <p class="live-note">
-            Route styling and stop details are controlled by Google Maps – use the full-screen button
-            to zoom in on the Metrolink yellow line and surrounding area.
+            Route styling and stop details are controlled by Google Maps – use the full-screen button to zoom in.
           </p>
         </section>
       </div>
+
+      <!-- MIDDLE COLUMN: Stations & Reports -->
+      <aside class="stations-card">
+        <div class="stations-inner">
+          <div class="stations-header">
+            <h2>Stations &amp; Inspector Reports</h2>
+            <div class="mode-badge">Ticket Inspectors • No Ticket Inspectors</div>
+          </div>
+
+          <p class="sub">
+            When the tram reaches your stop, tap the station and choose <span>Ticket Inspectors</span>
+            if you see them, or <span>No Ticket Inspectors</span> if it’s clear.
+          </p>
+
+          <div class="current-status" id="currentStatus">
+            <span>Current tram stop: <span class="highlight" id="currentStopName">—</span></span>
+            <span>Local view: <span id="currentStopMood">no reports yet</span></span>
+          </div>
+
+          <div class="panels">
+            <div class="stations" id="stationsList"></div>
+
+            <div class="alerts" id="alertsPanel">
+              <div class="alerts-head">
+                <span>Latest alerts (from server)</span>
+                <span class="summary-counts">
+                  Inspectors: <span id="countA">0</span> • Clear: <span id="countB">0</span>
+                </span>
+              </div>
+              <div id="alertsBody"></div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- RIGHT COLUMN: Analytics -->
+      <section class="analytics-card">
+        <div class="analytics-header">
+          <h2>Metheads analytics</h2>
+          <span class="analytics-tag" id="analyticsMode">Live + Local</span>
+        </div>
+        <p class="analytics-sub">
+          Quick breakdown of reports (and what the server returns).
+        </p>
+
+        <div class="analytics-summary">
+          <div class="metric-main">
+            <span class="metric-label">Total reports</span>
+            <span class="metric-value" id="analyticsTotal">0</span>
+          </div>
+
+          <div class="metric-split">
+            <div class="metric-row">
+              <span>Ticket inspectors</span>
+              <span id="analyticsInspectors">0</span>
+            </div>
+            <div class="metric-bar">
+              <div class="metric-bar-fill bad" id="analyticsInspectorsBar"></div>
+            </div>
+
+            <div class="metric-row">
+              <span>No ticket inspectors</span>
+              <span id="analyticsClear">0</span>
+            </div>
+            <div class="metric-bar">
+              <div class="metric-bar-fill good" id="analyticsClearBar"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="analytics-stations">
+          <div class="analytics-stations-head">
+            <span>Most reported stops (top 5)</span>
+          </div>
+          <div id="analyticsStationsList" class="analytics-stations-list">
+            <p class="analytics-empty">No reports yet. Use the buttons on a stop to see stats here.</p>
+          </div>
+        </div>
+      </section>
     </main>
   </div>
 
   <script>
-    // ==== DATA – Bury line (yellow) following map order ====
+    // ==== BURY LINE STATIONS – with slugs ====
     const stations = [
-      { name: "Bury", zone: 4, x: 0.92, y: 0.10 },
-      { name: "Radcliffe", zone: 4, x: 0.84, y: 0.11 },
-      { name: "Whitefield", zone: 4, x: 0.76, y: 0.11 },
-      { name: "Besses o' th' Barn", zone: 3, x: 0.68, y: 0.13 },
-      { name: "Prestwich", zone: 3, x: 0.60, y: 0.15 },
-      { name: "Heaton Park", zone: 3, x: 0.52, y: 0.17 },
-      { name: "Bowker Vale", zone: 3, x: 0.44, y: 0.19 },
-      { name: "Crumpsall", zone: 2, x: 0.36, y: 0.20 },
-      { name: "Abraham Moss", zone: 2, x: 0.28, y: 0.21 },
-      { name: "Queens Road", zone: 2, x: 0.24, y: 0.28 },
-      { name: "Victoria", zone: 1, x: 0.30, y: 0.40 },
-      { name: "Shudehill", zone: 1, x: 0.36, y: 0.42 },
-      { name: "Market Street", zone: 1, x: 0.42, y: 0.44 },
-      { name: "St Peter's Square", zone: 1, x: 0.51, y: 0.47 },
-      { name: "Piccadilly Gardens", zone: 1, x: 0.47, y: 0.55 },
-      { name: "Piccadilly", zone: 1, x: 0.45, y: 0.62 }
+      { name: "Bury", slug: "bury", zone: 4, x: 0.92, y: 0.10 },
+      { name: "Radcliffe", slug: "radcliffe", zone: 4, x: 0.84, y: 0.11 },
+      { name: "Whitefield", slug: "whitefield", zone: 4, x: 0.76, y: 0.11 },
+      { name: "Besses o' th' Barn", slug: "besses-o-th-barn", zone: 3, x: 0.68, y: 0.13 },
+      { name: "Prestwich", slug: "prestwich", zone: 3, x: 0.60, y: 0.15 },
+      { name: "Heaton Park", slug: "heaton-park", zone: 3, x: 0.52, y: 0.17 },
+      { name: "Bowker Vale", slug: "bowker-vale", zone: 3, x: 0.44, y: 0.19 },
+      { name: "Crumpsall", slug: "crumpsall", zone: 2, x: 0.36, y: 0.20 },
+      { name: "Abraham Moss", slug: "abraham-moss", zone: 2, x: 0.28, y: 0.21 },
+      { name: "Queens Road", slug: "queens-road", zone: 2, x: 0.24, y: 0.28 },
+      { name: "Victoria", slug: "victoria", zone: 1, x: 0.30, y: 0.40 },
+      { name: "Shudehill", slug: "shudehill", zone: 1, x: 0.36, y: 0.42 },
+      { name: "Market Street", slug: "market-street", zone: 1, x: 0.42, y: 0.44 },
+      { name: "St Peter's Square", slug: "st-peters-square", zone: 1, x: 0.51, y: 0.47 },
+      { name: "Piccadilly Gardens", slug: "piccadilly-gardens", zone: 1, x: 0.47, y: 0.55 },
+      { name: "Piccadilly", slug: "piccadilly", zone: 1, x: 0.45, y: 0.62 }
     ];
 
-    stations.forEach(s => {
-      s.reportsA = 0;
-      s.reportsB = 0;
-    });
+    // local counters (we rebuild from server responses)
+    stations.forEach(s => { s.reportsA = 0; s.reportsB = 0; });
 
+    // ==== DOM REFS ====
     const canvas = document.getElementById("mapCanvas");
     const ctx = canvas.getContext("2d");
 
     const stationsListEl = document.getElementById("stationsList");
     const alertsBodyEl = document.getElementById("alertsBody");
+
     const currentStopNameEl = document.getElementById("currentStopName");
     const currentStopMoodEl = document.getElementById("currentStopMood");
 
@@ -744,13 +799,103 @@
     const inspectorsCountEl = document.getElementById("inspectorsCount");
     const countAEl = document.getElementById("countA");
     const countBEl = document.getElementById("countB");
-    const resetBtn = document.getElementById("resetBtn");
 
+    // analytics
+    const analyticsTotalEl = document.getElementById("analyticsTotal");
+    const analyticsInspectorsEl = document.getElementById("analyticsInspectors");
+    const analyticsClearEl = document.getElementById("analyticsClear");
+    const analyticsInspectorsBarEl = document.getElementById("analyticsInspectorsBar");
+    const analyticsClearBarEl = document.getElementById("analyticsClearBar");
+    const analyticsStationsListEl = document.getElementById("analyticsStationsList");
+
+    // Tram animation state
     let tramIndex = 0;
-    let direction = -1; // start heading towards Piccadilly from Bury
+    let direction = -1;
     let tickTimer = null;
-    const alerts = [];
 
+    // Alerts shown in UI (server + pending local)
+    const alerts = [];
+    const pending = []; // local optimistic entries until server includes them
+
+    // ==== BACKEND ====
+    async function sendReportToServer(station, choice) {
+      const resp = await fetch("/.netlify/functions/report", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ stationSlug: station.slug, choice })
+      });
+
+      // If function fails, keep pending but don’t crash
+      if (!resp.ok) throw new Error("Report failed: " + resp.status);
+      return resp.json();
+    }
+
+    // Merge pending into server list so analytics doesn't flash back to 0
+    function mergePendingIntoRows(rows) {
+      const serverKey = new Set(
+        rows.map(r => `${r.station_slug}|${r.choice}|${new Date(r.created_at).getTime()}`)
+      );
+
+      // keep only pending still not seen on server (max 20s old)
+      const now = Date.now();
+      const stillPending = [];
+      for (const p of pending) {
+        const key = `${p.station_slug}|${p.choice}|${p.created_at}`;
+        const age = now - p.created_at;
+        if (!serverKey.has(key) && age < 20000) stillPending.push(p);
+      }
+      pending.length = 0;
+      pending.push(...stillPending);
+
+      // Convert pending to row-like objects and add
+      const merged = rows.slice();
+      for (const p of pending) {
+        merged.unshift({
+          station_slug: p.station_slug,
+          choice: p.choice,
+          created_at: new Date(p.created_at).toISOString()
+        });
+      }
+
+      // Keep only 40 newest
+      merged.sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
+      return merged.slice(0, 40);
+    }
+
+    async function refreshSharedAlerts() {
+      try {
+        const resp = await fetch("/.netlify/functions/latest", { cache: "no-store" });
+        const data = await resp.json();
+        const rowsRaw = data.alerts || [];
+        const rows = mergePendingIntoRows(rowsRaw);
+
+        // reset local state, rebuild from rows
+        alerts.length = 0;
+        stations.forEach(s => { s.reportsA = 0; s.reportsB = 0; });
+
+        for (const row of rows) {
+          const idx = stations.findIndex(s => s.slug === row.station_slug);
+          if (idx === -1) continue;
+
+          const time = new Date(row.created_at);
+          const choice = row.choice === "A" ? "A" : "B";
+
+          alerts.push({ stationIndex: idx, choice, time });
+
+          if (choice === "A") stations[idx].reportsA += 1;
+          else stations[idx].reportsB += 1;
+        }
+
+        updateCounts();
+        renderAlerts();
+        updateAnalytics();
+        updateCurrentMood(tramIndex);
+      } catch (err) {
+        console.error("Failed to load shared alerts", err);
+      }
+    }
+
+    // ==== UI BUILD ====
     function buildStationsList() {
       stationsListEl.innerHTML = "";
       stations.forEach((station, index) => {
@@ -760,12 +905,15 @@
 
         const main = document.createElement("div");
         main.className = "st-main";
+
         const name = document.createElement("div");
         name.className = "st-name";
         name.textContent = station.name;
+
         const meta = document.createElement("div");
         meta.className = "st-meta";
         meta.textContent = `Zone ${station.zone} • Bury (yellow) line`;
+
         main.appendChild(name);
         main.appendChild(meta);
 
@@ -774,18 +922,18 @@
 
         const btnA = document.createElement("button");
         btnA.className = "btn-report bad";
-        btnA.textContent = "Option A – Ticket Inspectors";
-        btnA.addEventListener("click", (e) => {
+        btnA.textContent = "Ticket Inspectors";
+        btnA.addEventListener("click", async (e) => {
           e.stopPropagation();
-          submitReport(index, "A");
+          await submitReport(index, "A");
         });
 
         const btnB = document.createElement("button");
         btnB.className = "btn-report good";
-        btnB.textContent = "Option B – No Ticket Inspectors";
-        btnB.addEventListener("click", (e) => {
+        btnB.textContent = "No Ticket Inspectors";
+        btnB.addEventListener("click", async (e) => {
           e.stopPropagation();
-          submitReport(index, "B");
+          await submitReport(index, "B");
         });
 
         actions.appendChild(btnA);
@@ -811,40 +959,43 @@
 
     function highlightActiveRow(index) {
       const rows = stationsListEl.querySelectorAll(".station-row");
-      rows.forEach((row) => {
-        if (parseInt(row.dataset.index, 10) === index) {
-          row.classList.add("active");
-        } else {
-          row.classList.remove("active");
-        }
+      rows.forEach((r) => {
+        r.classList.toggle("active", parseInt(r.dataset.index, 10) === index);
       });
     }
 
-    function submitReport(stationIndex, choice) {
+    // Submit report: optimistic UI + pending merge so analytics doesn't snap back
+    async function submitReport(stationIndex, choice) {
       const s = stations[stationIndex];
-      if (choice === "A") {
-        s.reportsA += 1;
-      } else {
-        s.reportsB += 1;
-      }
+      const now = Date.now();
 
-      const time = new Date();
-      alerts.unshift({ stationIndex, choice, time });
+      // Add to pending and local UI immediately
+      pending.unshift({ station_slug: s.slug, choice, created_at: now });
+
+      alerts.unshift({ stationIndex, choice, time: new Date(now) });
       if (alerts.length > 40) alerts.pop();
+
+      if (choice === "A") s.reportsA += 1;
+      else s.reportsB += 1;
 
       updateCounts();
       renderAlerts();
+      updateAnalytics();
       updateCurrentMood(tramIndex);
 
-      const label = choice === "A" ? "Ticket inspectors" : "No ticket inspectors";
-      currentStopMoodEl.textContent = `${label.toLowerCase()} reported at ${s.name}`;
-      currentStopMoodEl.classList.remove("bad");
-      if (choice === "A") currentStopMoodEl.classList.add("bad");
+      // Send to backend
+      try {
+        await sendReportToServer(s, choice);
+        // refresh to sync with server, but keep pending merge to prevent flicker
+        refreshSharedAlerts();
+      } catch (err) {
+        console.error("Failed to send report to server", err);
+      }
     }
 
     function updateCounts() {
       const totalReports = alerts.length;
-      const totalA = alerts.filter((a) => a.choice === "A").length;
+      const totalA = alerts.filter(a => a.choice === "A").length;
       const totalB = totalReports - totalA;
 
       reportCountEl.textContent = totalReports;
@@ -859,7 +1010,7 @@
         const empty = document.createElement("div");
         empty.style.color = "#9ca3af";
         empty.style.fontSize = "0.72rem";
-        empty.textContent = "No alerts yet. Use Options A/B on a station to add one.";
+        empty.textContent = "No alerts yet. Use the buttons on a station to add one.";
         alertsBodyEl.appendChild(empty);
         return;
       }
@@ -871,24 +1022,26 @@
 
         const main = document.createElement("div");
         main.className = "alert-main";
+
         const name = document.createElement("span");
         name.className = "name";
         name.textContent = st.name;
+
         const meta = document.createElement("span");
         meta.style.color = "#9ca3af";
         meta.textContent = `Zone ${st.zone} • Bury line`;
+
         main.appendChild(name);
         main.appendChild(meta);
 
         const right = document.createElement("div");
         right.style.display = "flex";
         right.style.alignItems = "center";
-        right.style.gap = "6px";
+        right.style.gap = "8px";
 
         const badge = document.createElement("span");
         badge.className = alert.choice === "A" ? "badge-a" : "badge-b";
-        badge.textContent =
-          alert.choice === "A" ? "Option A – Ticket Inspectors" : "Option B – No Ticket Inspectors";
+        badge.textContent = alert.choice === "A" ? "Ticket Inspectors" : "No Ticket Inspectors";
 
         const time = document.createElement("span");
         time.className = "time";
@@ -903,27 +1056,85 @@
       });
     }
 
+    function updateAnalytics() {
+      const total = alerts.length;
+      const totalA = alerts.filter(a => a.choice === "A").length;
+      const totalB = total - totalA;
+
+      analyticsTotalEl.textContent = total;
+      analyticsInspectorsEl.textContent = totalA;
+      analyticsClearEl.textContent = totalB;
+
+      const max = Math.max(totalA, totalB, 1);
+      analyticsInspectorsBarEl.style.width = `${(totalA / max) * 100}%`;
+      analyticsClearBarEl.style.width = `${(totalB / max) * 100}%`;
+
+      analyticsStationsListEl.innerHTML = "";
+      if (!alerts.length) {
+        const empty = document.createElement("p");
+        empty.className = "analytics-empty";
+        empty.textContent = "No reports yet. Use the buttons on a stop to see stats here.";
+        analyticsStationsListEl.appendChild(empty);
+        return;
+      }
+
+      const stationCounts = new Map();
+      alerts.forEach(a => {
+        const st = stations[a.stationIndex];
+        const entry = stationCounts.get(st.name) || { a:0, b:0 };
+        if (a.choice === "A") entry.a++;
+        else entry.b++;
+        stationCounts.set(st.name, entry);
+      });
+
+      const top = [...stationCounts.entries()]
+        .sort((x,y) => (y[1].a+y[1].b) - (x[1].a+x[1].b))
+        .slice(0,5);
+
+      top.forEach(([name, c]) => {
+        const row = document.createElement("div");
+        row.className = "analytics-station-row";
+
+        const main = document.createElement("div");
+        main.className = "analytics-station-main";
+
+        const title = document.createElement("span");
+        title.className = "analytics-station-name";
+        title.textContent = name;
+
+        const meta = document.createElement("span");
+        meta.className = "analytics-station-meta";
+        meta.textContent = `Inspectors: ${c.a} • Clear: ${c.b}`;
+
+        main.appendChild(title);
+        main.appendChild(meta);
+
+        const counts = document.createElement("div");
+        counts.className = "analytics-station-counts";
+        counts.textContent = c.a + c.b;
+
+        row.appendChild(main);
+        row.appendChild(counts);
+        analyticsStationsListEl.appendChild(row);
+      });
+    }
+
     function updateCurrentMood(index) {
       const s = stations[index];
       const total = s.reportsA + s.reportsB;
+
       if (!total) {
         currentStopMoodEl.textContent = "no reports yet";
-        currentStopMoodEl.classList.remove("bad");
         return;
       }
       const ratio = s.reportsA / total;
-      if (ratio > 0.6) {
-        currentStopMoodEl.textContent = "inspectors likely – lots of A reports";
-        currentStopMoodEl.classList.add("bad");
-      } else if (ratio > 0.3) {
-        currentStopMoodEl.textContent = "mixed – keep an eye out";
-        currentStopMoodEl.classList.remove("bad");
-      } else {
-        currentStopMoodEl.textContent = "generally clear – mostly B reports";
-        currentStopMoodEl.classList.remove("bad");
-      }
+
+      if (ratio > 0.6) currentStopMoodEl.textContent = "inspectors likely";
+      else if (ratio > 0.3) currentStopMoodEl.textContent = "mixed – keep an eye out";
+      else currentStopMoodEl.textContent = "generally clear";
     }
 
+    // ==== CANVAS ====
     function resizeCanvas() {
       const rect = canvas.getBoundingClientRect();
       const dpr = window.devicePixelRatio || 1;
@@ -932,17 +1143,13 @@
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       drawFrame();
     }
-
     window.addEventListener("resize", resizeCanvas);
 
     function zoneColour(zone) {
-      switch (zone) {
-        case 1: return "#f97316";
-        case 2: return "#22c55e";
-        case 3: return "#3b82f6";
-        case 4: return "#a855f7";
-        default: return "#e5e7eb";
-      }
+      return zone === 1 ? "#f97316" :
+             zone === 2 ? "#22c55e" :
+             zone === 3 ? "#3b82f6" :
+             zone === 4 ? "#a855f7" : "#e5e7eb";
     }
 
     function drawFrame() {
@@ -954,6 +1161,7 @@
       const centerX = stations[midIndex].x * w;
       const centerY = stations[midIndex].y * h;
       const baseR = Math.min(w, h) * 0.2;
+
       ["rgba(15,23,42,0.55)", "rgba(15,23,42,0.42)", "rgba(15,23,42,0.3)"].forEach((col, i) => {
         const r = baseR * (1.2 + i * 0.7);
         ctx.beginPath();
@@ -963,6 +1171,7 @@
         ctx.closePath();
       });
 
+      // line path
       ctx.beginPath();
       stations.forEach((s, i) => {
         const x = s.x * w;
@@ -976,6 +1185,7 @@
       ctx.stroke();
       ctx.closePath();
 
+      // stations + labels
       stations.forEach((s, i) => {
         const x = s.x * w;
         const y = s.y * h;
@@ -1000,17 +1210,14 @@
           ctx.font = "11px system-ui";
           const metrics = ctx.measureText(label);
           const paddingX = 7;
-          const boxW = metrics.width + paddingX * 2;
           const boxH = 18;
+          const boxW = metrics.width + paddingX * 2;
           const labelX = x + 10;
           const labelY = y - 24;
 
           ctx.beginPath();
-          if (ctx.roundRect) {
-            ctx.roundRect(labelX, labelY, boxW, boxH, 9);
-          } else {
-            ctx.rect(labelX, labelY, boxW, boxH);
-          }
+          if (ctx.roundRect) ctx.roundRect(labelX, labelY, boxW, boxH, 9);
+          else ctx.rect(labelX, labelY, boxW, boxH);
           ctx.fillStyle = "rgba(15, 23, 42, 0.96)";
           ctx.strokeStyle = "rgba(15, 23, 42, 0.6)";
           ctx.lineWidth = 1;
@@ -1026,6 +1233,7 @@
         }
       });
 
+      // tram sprite
       const s = stations[tramIndex];
       const tx = s.x * w;
       const ty = s.y * h;
@@ -1055,9 +1263,7 @@
       ctx.fillRect(-tramW / 2 + 4, -tramH / 2 + 3, tramW - 8, 6);
 
       ctx.fillStyle = "#e5e7eb";
-      for (let i = 0; i < 3; i++) {
-        ctx.fillRect(-tramW / 2 + 5 + i * 9, -tramH / 2 + 4, 6, 4);
-      }
+      for (let i = 0; i < 3; i++) ctx.fillRect(-tramW / 2 + 5 + i * 9, -tramH / 2 + 4, 6, 4);
 
       ctx.beginPath();
       ctx.arc(-tramW / 2 + 7, tramH / 2, 3, 0, Math.PI * 2);
@@ -1066,59 +1272,36 @@
       ctx.fill();
       ctx.closePath();
 
-      const totalHere = s.reportsA + s.reportsB;
-      if (totalHere && s.reportsA / totalHere > 0.6) {
-        ctx.fillStyle = "#f97316";
-        ctx.font = "9px system-ui";
-        ctx.textAlign = "left";
-        ctx.fillText("Tickets out!", tramW / 2 + 6, -tramH / 2 + 1);
-      }
-
       ctx.restore();
     }
 
     function tick() {
       tramIndex += direction;
-      if (tramIndex >= stations.length) {
-        tramIndex = stations.length - 2;
-        direction = -1;
-      } else if (tramIndex < 0) {
-        tramIndex = 1;
-        direction = 1;
-      }
-      const s = stations[tramIndex];
-      currentStopNameEl.textContent = s.name;
+      if (tramIndex >= stations.length) { tramIndex = stations.length - 2; direction = -1; }
+      else if (tramIndex < 0) { tramIndex = 1; direction = 1; }
+
+      currentStopNameEl.textContent = stations[tramIndex].name;
       highlightActiveRow(tramIndex);
       updateCurrentMood(tramIndex);
       drawFrame();
     }
 
-    function resetAll() {
-      alerts.length = 0;
-      stations.forEach((s) => {
-        s.reportsA = 0;
-        s.reportsB = 0;
-      });
-      updateCounts();
-      renderAlerts();
-      updateCurrentMood(tramIndex);
-    }
-
-    resetBtn.addEventListener("click", () => {
-      resetAll();
-    });
-
     function init() {
       buildStationsList();
       resizeCanvas();
+
       tramIndex = 0;
       direction = -1;
       currentStopNameEl.textContent = stations[tramIndex].name;
       highlightActiveRow(tramIndex);
       updateCurrentMood(tramIndex);
+
       if (tickTimer) clearInterval(tickTimer);
       tickTimer = setInterval(tick, 2200);
-      renderAlerts();
+
+      // initial server load + polling
+      refreshSharedAlerts();
+      setInterval(refreshSharedAlerts, 7000);
     }
 
     init();
